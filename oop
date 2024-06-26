@@ -1,0 +1,167 @@
+using System;
+using System.Windows.Forms;
+
+namespace HexCalculator
+{
+    static class Program
+    {
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Додаток В. ( код Form1.cs )
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace HexCalculator
+{
+    public partial class MainForm : Form
+    {
+        private TextBox inputA;
+        private TextBox inputB;
+        private Label resultLabel;
+
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            this.inputA = new TextBox();
+            this.inputB = new TextBox();
+            this.resultLabel = new Label();
+            Button addButton = new Button();
+            Button subtractButton = new Button();
+            Button multiplyButton = new Button();
+            Button divideButton = new Button();
+
+            addButton.Text = "Додати";
+            addButton.Click += new EventHandler(this.AddButton_Click);
+
+            subtractButton.Text = "Відняти";
+            subtractButton.Click += new EventHandler(this.SubtractButton_Click);
+
+            multiplyButton.Text = "Множити";
+            multiplyButton.Click += new EventHandler(this.MultiplyButton_Click);
+
+            divideButton.Text = "Ділити";
+            divideButton.Click += new EventHandler(this.DivideButton_Click);
+
+            this.Controls.Add(this.inputA);
+            this.Controls.Add(this.inputB);
+            this.Controls.Add(this.resultLabel);
+            this.Controls.Add(addButton);
+            this.Controls.Add(subtractButton);
+            this.Controls.Add(multiplyButton);
+            this.Controls.Add(divideButton);
+
+            this.inputA.Top = 10;
+            this.inputA.Left = 10;
+
+            this.inputB.Top = 40;
+            this.inputB.Left = 10;
+
+            addButton.Top = 70;
+            addButton.Left = 10;
+
+            subtractButton.Top = 100;
+            subtractButton.Left = 10;
+
+            multiplyButton.Top = 130;
+            multiplyButton.Left = 10;
+
+            divideButton.Top = 160;
+            divideButton.Left = 10;
+
+            this.resultLabel.Top = 190;
+            this.resultLabel.Left = 10;
+            this.resultLabel.Width = 400;
+
+            this.Text = "Шістнадцятковий Калькулятор";
+            this.Width = 450;
+            this.Height = 300;
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                HexNumber a = new HexNumber(inputA.Text);
+                HexNumber b = new HexNumber(inputB.Text);
+                HexNumber result = HexNumber.Add(a, b);
+                resultLabel.Text = $"Результат (Hex): {result} (Dec): {result.ToDecimal()}";
+            }
+            catch (Exception ex)
+            {
+                resultLabel.Text = $"Помилка: {ex.Message}";
+            }
+        }
+
+        private void SubtractButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                HexNumber a = new HexNumber(inputA.Text);
+                HexNumber b = new HexNumber(inputB.Text);
+                HexNumber result = HexNumber.Subtract(a, b);
+                resultLabel.Text = $"Результат (Hex): {result} (Dec): {result.ToDecimal()}";
+            }
+            catch (Exception ex)
+            {
+                resultLabel.Text = $"Помилка: {ex.Message}";
+            }
+        }
+
+        private void MultiplyButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                HexNumber a = new HexNumber(inputA.Text);
+                HexNumber b = new HexNumber(inputB.Text);
+                HexNumber result = HexNumber.Multiply(a, b);
+                resultLabel.Text = $"Результат (Hex): {result} (Dec): {result.ToDecimal()}";
+            }
+            catch (Exception ex)
+            {
+                resultLabel.Text = $"Помилка: {ex.Message}";
+            }
+        }
+
+        private void DivideButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                HexNumber a = new HexNumber(inputA.Text);
+                HexNumber b = new HexNumber(inputB.Text);
+                HexNumber result = HexNumber.Divide(a, b);
+                resultLabel.Text = $"Результат (Hex): {result} (Dec): {result.ToDecimal()}";
+            }
+            catch (Exception ex)
+            {
+                resultLabel.Text = $"Помилка: {ex.Message}";
+            }
+        }
+    }
+}
